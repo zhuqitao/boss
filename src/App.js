@@ -1,36 +1,37 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import React, {
+    Component
+} from 'react';
+import {
+    connect
+} from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
 
+@connect(state => {
+    return state
+})
 class App extends Component {
-  render() {
-    console.log(this.props);
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+    render() {
+        console.log(this.props);
+        return (
+            <div className="App">
+                <header className="App-header">
+                <img src={logo} className="App-logo" alt="logo" />
+                <p>
+                    Edit <code>src/App.js</code> and save to reload.
+                </p>
+                <a
+                    className="App-link"
+                    href="https://reactjs.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Learn React
+                </a>
+            </header>
       </div>
-    );
-  }
+        );
+    }
 }
-function mapStateToProp(state) {
-  console.log(state)
-  return {
-    num: state.num,
-    user: state.user
-  }
-}
-export default connect(mapStateToProp)(App);
+
+export default App;

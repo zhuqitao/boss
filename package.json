@@ -5,6 +5,7 @@
   "dependencies": {
     "@babel/core": "7.1.0",
     "@svgr/webpack": "2.4.1",
+    "antd-mobile": "^2.2.6",
     "axios": "^0.18.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
@@ -15,6 +16,7 @@
     "bfj": "6.1.1",
     "case-sensitive-paths-webpack-plugin": "2.1.2",
     "chalk": "2.4.1",
+    "cookie-parse": "^0.4.0",
     "css-loader": "1.0.0",
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
@@ -25,6 +27,7 @@
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-jsx-a11y": "6.1.2",
     "eslint-plugin-react": "7.11.1",
+    "express": "^4.16.4",
     "file-loader": "2.0.0",
     "fork-ts-checker-webpack-plugin-alt": "0.4.14",
     "fs-extra": "7.0.0",
@@ -45,6 +48,8 @@
     "react-dev-utils": "^6.1.1",
     "react-dom": "^16.6.3",
     "react-redux": "^6.0.0",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "resolve": "1.8.1",
@@ -115,7 +120,26 @@
   "babel": {
     "presets": [
       "react-app"
+    ],
+    "plugins": [
+      [
+        "import",
+        {
+          "libraryName": "antd-mobile",
+          "style": "css"
+        }
+      ],
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ]
     ]
   },
-  "proxy": "http://localhost:9093"
+  "proxy": "http://localhost:9093",
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.2.0",
+    "babel-plugin-import": "^1.11.0"
+  }
 }
