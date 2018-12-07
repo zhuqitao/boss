@@ -45,6 +45,11 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
     {
       loader: require.resolve('css-loader'),
       options: cssOptions,
+    // options: {
+    //     modules: true,   // 添加对css module的支持
+    //     localIdentName: '[name]__[local]__[hash:base64:5]', // css类名编译规则
+    //     ...cssOptions
+    // }
     },
     {
       // Options for PostCSS as we reference these options twice
