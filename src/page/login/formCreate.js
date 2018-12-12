@@ -1,4 +1,5 @@
 import React from 'react';
+// 属性代理 高阶组件
 // const createForm = WrappedComponent => class extends React.Component{
 //     constructor(){
 //         super();
@@ -34,6 +35,8 @@ import React from 'react';
 //         return (<WrappedComponent {...props} />)
 //     }
 // };
+
+// 反向继承 高阶组件
 const createForm = WrappedComponent => class extends WrappedComponent{
     constructor(){
         super();

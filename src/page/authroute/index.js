@@ -4,10 +4,19 @@ import axios from 'axios';
 @withRouter
 class AutnRoute extends React.Component{
     componentDidMount() {
+        this.routerPush();
+    }
+
+    routerPush = () => {
         // 是否登录
         // /login和/register不需要跳转
         // 用户的type 是boss还是牛人
-        axios.get('/user/info').then(res => {
+        const publicList = ['/login', '/register'];
+        const {location} = this.props;
+        if(publicList.indexOf(location.pathname) > -1) {
+            return;
+        }
+        axios.get('/api/user/info').then(res => {
             if(res.data.code === 200) {
 
             }else {
@@ -19,7 +28,7 @@ class AutnRoute extends React.Component{
     }
     
     render() {
-        return (<div>auth</div>)
+        return (null);
     }
 }
 

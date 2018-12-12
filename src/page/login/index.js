@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from "./index.module.css";
-import {Button} from 'antd-mobile';
-import formCreate from './formCreate';
-@formCreate
+import {List, InputItem, WingBlank, WhiteSpace, Button} from 'antd-mobile';
+
 class Login extends React.Component {
     constructor(props){
         super(props);
@@ -13,18 +12,24 @@ class Login extends React.Component {
     componentDidMount() {
         
     }
-    click(key) {
-        return e => {
-            console.log('key', key);
-            console.dir(e.target);
-        }
+
+    register = () => {
+        const {history} = this.props;
+        history.push('/register');
     }
+    
     render() {
         return (
             <div className={styles.login}>
-                login
-                <Button type="primary">button</Button>
-                <div data-id="1" onClick={this.click('div')}>div</div>
+                <h2>登录页面</h2>
+                <WingBlank>
+                    <InputItem>用户：</InputItem>
+                    <WhiteSpace></WhiteSpace>
+                    <InputItem>密码：</InputItem>
+                    <Button type="primary">登录</Button>
+                    <WhiteSpace />
+                    <Button type="primary" onClick={this.register}>注册</Button>
+                </WingBlank>
             </div>
         )
     }
