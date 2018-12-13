@@ -1,7 +1,13 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
+import {loadData} from '../../redux/user';
 import axios from 'axios';
 @withRouter
+@connect(
+    null,
+    {loadData}
+)
 class AutnRoute extends React.Component{
     componentDidMount() {
         this.routerPush();
@@ -17,8 +23,10 @@ class AutnRoute extends React.Component{
             return;
         }
         axios.get('/api/user/info').then(res => {
-            if(res.data.code === 200) {
-
+            console.log(res);
+            if(res.data.code === 0) {
+                const {loadData} = this.props;
+                loadData(res.data.data);
             }else {
                 const {history} = this.props;
                 console.log(history);

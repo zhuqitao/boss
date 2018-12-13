@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import AuthRouter from './page/authroute';
 import Login from './page/login';
 import Register from './page/register';
+import BossInfo from './page/bossInfo';
+import GeniusInfo from './page/geniusInfo';
 import {Provider} from 'react-redux';
 import store from './store';
 
@@ -14,8 +16,13 @@ ReactDOM.render(
 		<BrowserRouter>
 			<div>
 				<AuthRouter></AuthRouter>
-				<Route path="/login" component={Login}></Route>
-				<Route path="/register" component={Register}></Route>
+				<Switch>
+					<Route path="/login" component={Login}></Route>
+					<Route path="/register" component={Register}></Route>
+					<Route path="/geniusInfo" component={GeniusInfo}></Route>
+					<Route path="/bossInfo" component={BossInfo}></Route>
+				</Switch>
+				
 			</div>
 		</BrowserRouter>
 	</Provider>,

@@ -1,6 +1,7 @@
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {register} from '../../model/user';
+import {register} from '../../redux/user';
 import {List, InputItem, WingBlank, WhiteSpace, Button, Radio} from 'antd-mobile';
 
 
@@ -37,8 +38,14 @@ class Register extends React.Component {
 
     render() {
         const {type} = this.state;
+        const {redirectTo} = this.props;
         return (
             <div>
+                {
+                    redirectTo
+                    ? (<Redirect to={redirectTo} />)
+                    : null
+                }
                 <WingBlank>
                     <h2>注册页面</h2>
                     <List>
