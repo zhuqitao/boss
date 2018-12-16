@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const DB_URL = 'mongodb://localhost:27017/imooc-chat';
+// const DB_URL = 'mongodb://localhost:27017/imooc-chat';
+const DB_URL = "mongodb+srv://zhuqitao:zhuqitao0.0@boss-uppf4.mongodb.net/admin";
 mongoose.connect(DB_URL);
 
 const models = {
