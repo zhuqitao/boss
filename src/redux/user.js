@@ -1,12 +1,11 @@
 import axios from 'axios';
 import {getRedirectPath} from '../util';
-const REGISTRT_SUCCESS = 'REGISTRT_SUCCESS';
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+const AUTH_SUCCESS = 'AUTH_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG';
 const LOAD_DATA = 'LOAD_DATA';
+const LOGOUT = 'LOGOUT';
 const initState = {
 	redirectTo: '',
-	isAuth: '',
 	msg: '',
 	user: '',
 	type: ''
@@ -14,24 +13,20 @@ const initState = {
 // reducer
 export function user(state = initState, action) {
 	switch(action.type) {
-		case REGISTRT_SUCCESS:
+		case AUTH_SUCCESS:
 			return {
 				...state, 
-				msg: '',
-				isAuth: true,
-				redirectTo: getRedirectPath(action.payload),
-				...action.payload
-			}
-		case LOGIN_SUCCESS:
-			return {
-				...state, 
-				msg: '',
-				isAuth: true,
-				redirectTo: getRedirectPath(action.payload),
-				...action.payload
+				redirectTo: getRedirectPath(action.payload, action.payload.avatar||false),
+                ...action.payload,
+                msg: '',
 			}
 		case  LOAD_DATA:
-			return {...state, ...action.payload}
+            return {...state, ...action.payload}
+        case LOGOUT:
+            return {
+                ...initState,
+                redirectTo: '/login'
+            }
 		case ERROR_MSG:
 			return {
 				...state,
@@ -49,18 +44,14 @@ function errorMsg(msg) {
 		type: ERROR_MSG
 	}
 }
-function registerSuccess(data) {
-	return {
-		type: REGISTRT_SUCCESS,
-		payload: data
-	}
+
+function authSuccess(data) {
+    return {
+        type: AUTH_SUCCESS,
+        payload: data
+    }
 }
-function loginSuccess(data) {
-	return {
-		type: LOGIN_SUCCESS,
-		payload: data,
-	}
-}
+
 export function register({user, pwd, repeatPwd, type}) {
 	if(!user || !pwd || !type) {
 		return errorMsg('用户名密码必须输入');
@@ -73,7 +64,7 @@ export function register({user, pwd, repeatPwd, type}) {
 			user, pwd, type
 		}).then(res => {
 			if(res.status === 200 && res.data.code === 0) {
-				dispatch(registerSuccess({user, pwd, type}));
+				dispatch(authSuccess({user, pwd, type}));
 			} else {
 				dispatch(errorMsg(res.data.msg));
 			}
@@ -103,10 +94,31 @@ export function login({user, pwd}) {
 	return dispatch => {
 		axios.post('/api/user/login', {user, pwd}).then(res => {
 			if(res.status === 200 && res.data.code === 0) {
-				dispatch(loginSuccess(res.data.data));
+				dispatch(authSuccess(res.data.data));
 			} else {
 				dispatch(errorMsg(res.data.msg));
 			}
 		})
 	}
+}
+
+export function update(data) {
+    return dispatch => {
+        axios.post('/api/user/update', data).then(res => {
+            if(res.status === 200 && res.data.code === 0) {
+                const param = Object.assign({}, res.data.data, {
+                    avatar: true
+                })
+				dispatch(authSuccess(param));
+			} else {
+				dispatch(errorMsg(res.data.msg));
+			}
+        })
+    }
+}
+
+export function logoutSubmit() {
+    return {
+        type: LOGOUT
+    }
 }

@@ -8,8 +8,11 @@ import Login from './page/login';
 import Register from './page/register';
 import BossInfo from './page/bossInfo';
 import GeniusInfo from './page/geniusInfo';
+import Chat from './Component/chat';
 import {Provider} from 'react-redux';
 import store from './store';
+
+import Dashboard from './Component/dashboard'
 
 ReactDOM.render(
 	<Provider store={store}>
@@ -21,6 +24,8 @@ ReactDOM.render(
 					<Route path="/register" component={Register}></Route>
 					<Route path="/geniusInfo" component={GeniusInfo}></Route>
 					<Route path="/bossInfo" component={BossInfo}></Route>
+                    <Route path="/chat/:user" component={Chat}></Route>
+                    <Route component={Dashboard}></Route>
 				</Switch>
 				
 			</div>

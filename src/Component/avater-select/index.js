@@ -7,6 +7,7 @@ class AvaterSelect extends React.Component{
         }
     }
     render() {
+        
         return (
             <div>
                 AvaterSelect

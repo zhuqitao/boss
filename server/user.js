@@ -5,9 +5,10 @@ const model = require('./model');
 const User = model.getModel('user');
 const _filter = {'pwd': 0, '__v': 0};
 Router.get('/list', (req, res) => {
+    const {type} = req.query;
     // User.remove({}, (err, doc) => {});
-    User.find({}, (err, doc) => {
-        return res.json(doc);
+    User.find({type}, (err, doc) => {
+        return res.json({code: 0, data:doc});
     })
 })
 Router.post('/register', (req, res) => {
@@ -26,6 +27,20 @@ Router.post('/register', (req, res) => {
             res.cookie('userId', _id);
             return res.json({code: 0, data: {user, type, _id}});
         }))
+    })
+})
+Router.post('/update', (req, res) => {
+    const {userId} = req.cookies;
+    if(!userId) {
+        return {code: 1};
+    }
+    const body = req.body;
+    User.findByIdAndUpdate(userId, body, function(err, doc){
+        const data = Object.assign({}, {
+            user: doc.user,
+            type: doc.type,
+        }, body)
+        return res.json({code: 0, data});
     })
 })
 Router.post('/login', (req, res) => {
