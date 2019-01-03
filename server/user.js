@@ -15,7 +15,6 @@ Router.get('/list', (req, res) => {
 Router.post('/register', (req, res) => {
     const {user, pwd, type} = req.body;
     User.find({user}, (err, doc) => {
-        console.log(doc);
         if(doc.length) {
             return res.json({code: 1, msg: '用户已存在'});
         }
@@ -28,6 +27,17 @@ Router.post('/register', (req, res) => {
             res.cookie('userId', _id);
             return res.json({code: 0, data: {user, type, _id}});
         }))
+    })
+})
+Router.post('/readmsg', (req, res) => {
+    const userid = req.cookies.userId;
+    const {from} = req.body;
+    Chat.update({from, to: userid}, {'$set': {read: true}}, {'multi': true}, (err, doc) => {
+        console.log(doc);
+        if(!err) {
+            return res.json({code: 0, num: doc.nModified})
+        }
+        return res.json({code: 1, msg: '修改失败'})
     })
 })
 Router.post('/update', (req, res) => {
@@ -75,9 +85,7 @@ Router.get('/getmsglist', (req, res)=>{
             users[v._id] = {name: v.user}
         })
         Chat.find({'$or': [{from: userId},{to: userId}]}, (err, doc)=>{
-            console.log('doc:', doc);
             if(!err) {
-                console.log('doc:', doc)
                 return res.json({code: 0, msgs: doc, users: users})
             }
         })
