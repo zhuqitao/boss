@@ -5,7 +5,7 @@ import './index.css'
 class UserCard extends React.Component{
     handleClick = v => e => {
         console.log(v);
-        this.props.history.push(`/chat/${v.user}`)
+        this.props.history.push(`/chat/${v._id}`)
     }
     render() {
         const {Header, Body} = Card;
