@@ -29,7 +29,7 @@ export function chat(state=initState, action) {
                 users: action.payload.users
             }
         case MSG_RECV:
-            const n = action.payload.to == action.userid? 1: 0
+            const n = action.payload.to === action.userid? 1: 0
             return {
                 ...state,
                 chatmsg: [...state.chatmsg, action.payload],
