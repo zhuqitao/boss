@@ -4,7 +4,7 @@ import {NavBar} from 'antd-mobile';
 import NavLinkNBar from '../navlink';
 import {Switch, Route} from 'react-router-dom';
 import {getMsgList, sendMsg, recvMsg} from '../../redux/chat'
-import { styles } from './index.module.scss';
+import { styles } from './index.module.css';
 import Boss from '../boss';
 import Genius from '../genius';
 import User from '../user';

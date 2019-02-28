@@ -1,36 +1,27 @@
-import React, {
-    Component
-} from 'react';
-import {
-    connect
-} from 'react-redux';
-import logo from './logo.svg';
-import './App.css';
-
-@connect(state => {
-    return state
-})
-class App extends Component {
+import React from 'react';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import AuthRouter from './page/authroute';
+import Login from './page/login';
+import Register from './page/register';
+import BossInfo from './page/bossInfo';
+import GeniusInfo from './page/geniusInfo';
+import Chat from './Component/chat';
+import Dashboard from './Component/dashboard'
+class App extends React.Component{
     render() {
-        console.log(this.props);
         return (
-            <div className="App">
-                <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-      </div>
-        );
+            <div>
+				<AuthRouter></AuthRouter>
+				<Switch>
+					<Route path="/login" component={Login}></Route>
+					<Route path="/register" component={Register}></Route>
+					<Route path="/geniusInfo" component={GeniusInfo}></Route>
+					<Route path="/bossInfo" component={BossInfo}></Route>
+                    <Route path="/chat/:user" component={Chat}></Route>
+                    <Route component={Dashboard}></Route>
+				</Switch>
+			</div>
+        )
     }
 }
 

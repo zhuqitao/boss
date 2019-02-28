@@ -2,33 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import AuthRouter from './page/authroute';
-import Login from './page/login';
-import Register from './page/register';
-import BossInfo from './page/bossInfo';
-import GeniusInfo from './page/geniusInfo';
-import Chat from './Component/chat';
+import {BrowserRouter} from 'react-router-dom';
+
 import {Provider} from 'react-redux';
 import store from './store';
+import App from './App'
 
-import Dashboard from './Component/dashboard'
-
-ReactDOM.render(
+ReactDOM.hydrate(
 	<Provider store={store}>
 		<BrowserRouter>
-			<div>
-				<AuthRouter></AuthRouter>
-				<Switch>
-					<Route path="/login" component={Login}></Route>
-					<Route path="/register" component={Register}></Route>
-					<Route path="/geniusInfo" component={GeniusInfo}></Route>
-					<Route path="/bossInfo" component={BossInfo}></Route>
-                    <Route path="/chat/:user" component={Chat}></Route>
-                    <Route component={Dashboard}></Route>
-				</Switch>
-				
-			</div>
+			<App></App>
 		</BrowserRouter>
 	</Provider>,
 	document.getElementById('root'));

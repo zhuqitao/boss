@@ -2,7 +2,7 @@ import React from 'react';
 import {TabBar} from 'antd-mobile';
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux';
-import {styles} from './index.module.scss';
+import {styles} from './index.module.css';
 
 @connect(
     state => state.chat
